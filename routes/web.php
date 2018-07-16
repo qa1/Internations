@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('group', 'GroupController');
+Route::resource('user', 'UserController');
+Route::resource('user-group', 'UsersGroupsController');
+Route::post('/user/{user_id}/detach/{group_id}', 'UsersGroupsController@destroy');
+Route::post('/user/attach', 'UsersGroupsController@store');

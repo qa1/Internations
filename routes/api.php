@@ -13,6 +13,15 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => 'auth:api'], function()
+{
+    Route::resource('user', 'ApiController\UserController');
+    Route::resource('group', 'ApiController\GroupController');
+    Route::resource('user-group', 'ApiController\UsersGroupsController');
+});
+
+Route::post('login', 'ApiController\ApiController@login');
+Route::post('register', 'ApiController\ApiController@register');
+Route::group(['middleware' => 'auth:api'], function(){
+Route::post('details', 'ApiController\ApiController@details');
 });
